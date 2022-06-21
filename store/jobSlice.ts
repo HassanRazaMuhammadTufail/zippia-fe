@@ -60,7 +60,6 @@ export const jobSlice = createSlice({
       state: Draft<typeof initialState>,
       action: PayloadAction<typeof initialState.selectedCompany>
     ) => {
-      console.log(action)
       state.selectedCompany = action.payload;
       if(action.payload !== 'All') state.jobsToShow = state.value.filter((job: any) => job.companyName === action.payload);
       else state.jobsToShow = state.value;
@@ -74,7 +73,6 @@ export const jobSlice = createSlice({
       .addCase(fetchJobs.fulfilled, (state, action) => {
         let _companiesArr = action.payload.jobs.map((job: any) => job.companyName);
         _companiesArr = [...new Set(_companiesArr)];
-        console.log(action);
         state.status = 'idle';
         state.value = action.payload.jobs;
         state.companies = _companiesArr;

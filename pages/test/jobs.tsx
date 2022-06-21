@@ -13,12 +13,17 @@ import MUISelect from '../../components/select';
 function UserCard() {
   const dispatch = useDispatch();
   const jobs = useSelector(getJobsState);
-  const [recentJobSwitch, setRecentJobSwitch] = useState<boolean>(false)
+  const [recentJobSwitch, setRecentJobSwitch] = useState<boolean>(false);
 
   useEffect(()=>{
+    //to fetch jobs on render
     dispatch(fetchJobs());
   },[]);
 
+  /**
+   * this function is written to handle recent post (posts that are posted more than 7 days ago)
+   * @param val boolean
+   */
   const recentJobHandle = (val: boolean) => {
     setRecentJobSwitch(val);
     dispatch(showRecentJobs(val))
@@ -27,7 +32,12 @@ function UserCard() {
     <div className={styles.parent}>
       <div className={styles.description}>
         <MUISelect />
-        <Button variant={recentJobSwitch?"contained":"outlined"} style={{width:'40%',height:'41%'}} onClick={()=>recentJobHandle(!recentJobSwitch)}>Show Recent Jobs</Button>
+        <Button 
+          variant={recentJobSwitch?"contained":"outlined"} 
+          style={{width:'40%',height:'41%'}} 
+          onClick={()=>recentJobHandle(!recentJobSwitch)}>
+            Show Recent Jobs
+        </Button>
       </div>
       <Container maxWidth='lg' fixed className={styles.dataContainer}>
         {jobs && jobs.map((job:{companyName: string; jobTitle: string; jobDescription: string;}, index: number) => {

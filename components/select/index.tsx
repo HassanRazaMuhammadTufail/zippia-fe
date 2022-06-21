@@ -15,7 +15,6 @@ export default function MUISelect() {
   const handleChange = (event: SelectChangeEvent) => {
     dispatch(selectCompany(event.target.value))
   };
-  console.log(companies)
   return (
     <Box sx={{ minWidth: 120 }} style={{width: '60%'}}>
       {companies && <FormControl fullWidth>

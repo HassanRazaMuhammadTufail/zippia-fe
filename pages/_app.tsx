@@ -5,6 +5,7 @@ import { store } from '../store/store';
 import { useEffect } from 'react';
 
 function MyApp({ Component, pageProps }: AppProps) {
+  //added redirection as we need only one page
   useEffect(()=>{
     if(window.location.pathname != '/test/jobs')
       window.location.pathname = '/test/jobs'; 
