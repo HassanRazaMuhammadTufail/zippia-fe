@@ -1,8 +1,8 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { Button, Container, Paper, Typography } from '@mui/material';
 
 import { useDispatch, useSelector } from '../../store/store';
-import { fetchJobs, getJobsState } from '../../store/jobSlice';
+import { fetchJobs, getJobsState, showRecentJobs } from '../../store/jobSlice';
 import styles from '../../styles/Home.module.css';
 import MUISelect from '../../components/select';
 
@@ -13,16 +13,21 @@ import MUISelect from '../../components/select';
 function UserCard() {
   const dispatch = useDispatch();
   const jobs = useSelector(getJobsState);
+  const [recentJobSwitch, setRecentJobSwitch] = useState<boolean>(false)
 
   useEffect(()=>{
     dispatch(fetchJobs());
   },[]);
 
+  const recentJobHandle = (val: boolean) => {
+    setRecentJobSwitch(val);
+    dispatch(showRecentJobs(val))
+  }
   return (
     <div className={styles.parent}>
       <div className={styles.description}>
         <MUISelect />
-        <Button variant="outlined" style={{width:'40%',height:'41%'}}>Show Recent Jobs</Button>
+        <Button variant={recentJobSwitch?"contained":"outlined"} style={{width:'40%',height:'41%'}} onClick={()=>recentJobHandle(!recentJobSwitch)}>Show Recent Jobs</Button>
       </div>
       <Container maxWidth='lg' fixed className={styles.dataContainer}>
         {jobs && jobs.map((job:{companyName: string; jobTitle: string; jobDescription: string;}, index: number) => {

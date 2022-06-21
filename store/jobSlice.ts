@@ -44,10 +44,17 @@ export const jobSlice = createSlice({
   initialState,
   reducers: {
     showRecentJobs: (
-      state: Draft<typeof initialState>
+      state: Draft<typeof initialState>,
+      action: PayloadAction<typeof initialState.recentJobs>
     ) => {
-      state.recentJobs = !state.recentJobs;
+      state.recentJobs = action.payload;
       if(state.selectedCompany !== 'All') state.jobsToShow = state.value.filter((job: any) => job.companyName === state.selectedCompany);
+      if(action.payload) {
+        state.jobsToShow = state.jobsToShow.filter((job:any)=>(Number(job.postedDate.split('d')[0]) < 7)?true:false)
+      } else {
+        if(state.selectedCompany !== 'All') state.jobsToShow = state.value.filter((job: any) => job.companyName === state.selectedCompany);
+        else state.jobsToShow = state.value;
+      }
     },
     selectCompany: (
       state: Draft<typeof initialState>,
@@ -86,6 +93,6 @@ export const getCompanies = (state: { data: IState }) => state.data.companies;
 export const getSelectedCompany = (state: {data: IState}) => state.data.selectedCompany;
 
 // Exports all actions
-export const { selectCompany } = jobSlice.actions;
+export const { selectCompany, showRecentJobs } = jobSlice.actions;
 
 export default jobSlice.reducer;
