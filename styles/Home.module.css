@@ -51,9 +51,17 @@
 }
 
 .description {
-  margin: 4rem 0;
+  padding-top: 4rem;
   line-height: 1.5;
   font-size: 1.5rem;
+  position: fixed;
+  width: 100%;
+  background: #fff;
+  height: 25%;
+  min-height: 200px;
+  max-height: 200px;
+  display: flex;
+  flex-direction: row;
 }
 
 .code {
@@ -108,9 +116,44 @@
   margin-left: 0.5rem;
 }
 
+.dataContainer {
+  height: 75%;
+  margin-top: 20%;
+}
+
+.paper {
+  /* padding: 10px; */
+  margin: 10px;
+}
+
+.jobTitle {
+  padding: 20px 10px;
+  background: #2b4d9b;
+  color: #fff;
+  margin: 0px;
+}
+
+.company {
+  padding: 20px 10px;
+  background: #666f84;
+  color: #fff;
+  margin: 0px;
+}
+
+.desc {
+  padding: 10px;
+  background-color: #efefef;
+}
+
+.parent {
+  display: flex;
+  flex-direction: column;
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;
     flex-direction: column;
   }
 }
+
